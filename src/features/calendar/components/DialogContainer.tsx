@@ -16,11 +16,11 @@ const DialogContentRefContext =
 export const useDialogContentRef = () => useContext(DialogContentRefContext);
 
 export type DialogContainerProps = DialogRootProps & {
-  onSuccess: () => void;
+  onSuccess?: () => void;
   label: string;
-  labelSuccess: string;
-  labelClose: string;
-  children?: React.ReactNode | undefined;
+  labelSuccess?: string;
+  labelClose?: string;
+  children?: React.ReactNode;
 };
 
 export function DialogContainer(props: DialogContainerProps) {

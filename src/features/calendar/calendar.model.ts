@@ -2,13 +2,9 @@ import { z } from "zod";
 
 export const useMatchSchema = () => {
   return z.object({
-    startDate: z.date(),
-    endDate: z.date(),
-    homeTeam: z.array(z.string().nonempty("L'équipe à domicile est requise")),
+    homeTeam: z.string().nonempty("L'équipe à domicile est requise").array(),
     homePlayer: z.string().nonempty("Le joueur à domicile est requis"),
-    awayTeam: z.array(
-      z.string().nonempty("L'équipe à l'extérieur est requise")
-    ),
+    awayTeam: z.string().nonempty("L'équipe à l'extérieur est requise").array(),
     awayPlayer: z.string().nonempty("Le joueur à l'extérieur est requis"),
   });
 };

@@ -5,17 +5,18 @@ import {
   type EventInput,
   type EventClickArg,
 } from "@fullcalendar/core/index.js";
+import { type EventImpl } from "@fullcalendar/core/internal";
 import frLocale from "@fullcalendar/core/locales/fr.js"; // French locale
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import interactionPlugin, {
-  type DateClickArg,
 } from "@fullcalendar/interaction"; // for selectable
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useState } from "react";
 
+import { AddEventDialog } from "./AddEventDialog";
 import { ChakraFullCalendarWrapper } from "./ChakraFullCalendarWrapper";
-import { EventDialog } from "./EventDialog";
+import { ShowMatchDialog } from "./ShowMatchDialog";
 
 type SelectedDates = {
   start: Date | null;
@@ -31,8 +32,9 @@ export default function Calendar() {
       id: "1",
     },
   ]);
+  const [selectedMatch, setSelectedMatch] = useState<EventImpl | null>(null);
   const [dialogType, setDialogType] = useState<"add" | "view">("add");
-  const { open, onOpen, onToggle } = useDisclosure();
+  const { open, onOpen, onToggle, onClose } = useDisclosure();
 
   const [selectedDates, setSelectedDates] = useState<SelectedDates>({
     start: null,
@@ -50,12 +52,13 @@ export default function Calendar() {
 
   const onEventClick = (arg: EventClickArg) => {
     setDialogType("view");
-    console.log(arg);
+    setSelectedMatch(arg.event);
+    onOpen();
   };
 
   const handleAddEvent = (event: EventInput) => {
     setEvents((prev) => [...prev, event]);
-    onToggle(); // Close the dialog after adding the event
+    onClose(); // Close the dialog after adding the event
   };
 
   const handleSelectAllow = (selectInfo: DateSpanApi) => {
@@ -90,7 +93,7 @@ export default function Calendar() {
         </Card.Body>
       </Card.Root>
       {dialogType === "add" ? (
-        <EventDialog
+        <AddEventDialog
           open={open}
           onOpenChange={onToggle}
           startDate={selectedDates.start}
@@ -98,10 +101,14 @@ export default function Calendar() {
           onAddEvent={handleAddEvent}
         >
           {" "}
-        </EventDialog>
+        </AddEventDialog>
       ) : (
-        <h2>Oui</h2>
-      )}
+        <ShowMatchDialog
+          open={open}
+          onOpenChange={onToggle}    
+          match={selectedMatch}>
+            {""}  
+          </ShowMatchDialog>)}
     </ChakraFullCalendarWrapper>
   );
 }

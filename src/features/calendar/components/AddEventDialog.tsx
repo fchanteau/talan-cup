@@ -4,7 +4,6 @@ import {
   Stack,
   Field,
   Input,
-  type SelectValueChangeDetails,
 } from "@chakra-ui/react";
 import { type EventInput } from "@fullcalendar/core/index.js";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,13 +16,13 @@ import { type MatchSchema, useMatchSchema } from "../calendar.model";
 
 import { selectTeamById, TEAMS } from "@/features/teams/teams.model";
 
-type EventDialogProps = DialogRootProps & {
-  startDate: Date;
-  endDate: Date;
+type AddEventDialogProps = DialogRootProps & {
+  startDate: Date | null;
+  endDate: Date | null;
   onAddEvent?: (event: EventInput) => void;
 };
 
-export function EventDialog(props: EventDialogProps) {
+export function AddEventDialog(props: AddEventDialogProps) {
   const contentRef = useRef<HTMLDivElement>(null);
   const { startDate, endDate, onAddEvent, ...restProps } = props;
 
@@ -43,29 +42,17 @@ export function EventDialog(props: EventDialogProps) {
     formState: { errors },
   } = useForm<MatchSchema>({
     resolver: zodResolver(matchSchema),
-    defaultValues: {
-      startDate: startDate,
-      endDate: endDate,
-      homeTeam: [],
-      homePlayer: undefined,
-      awayTeam: [],
-      awayPlayer: undefined,
-    },
   });
 
   const onSubmit: SubmitHandler<MatchSchema> = (data) => {
-    // if (startDate && endDate) {
-    //   const homeTeamData = selectTeamById(homeTeam!);
-    //   const awayTeamData = selectTeamById(awayTeam!);
-    //   const event: EventInput = {
-    //     title: `${homeTeamData?.name} (${homePlayer}) vs ${awayTeamData?.name} (${awayPlayer})`,
-    //     start: startDate,
-    //     end: endDate,
-    //   };
-    //   onAddEvent?.(event);
-    // }
-
-    console.log(data);
+    const homeTeamData = selectTeamById(data.homeTeam[0]);
+    const awayTeamData = selectTeamById(data.awayTeam[0]);
+    const event: EventInput = {
+      title: `${homeTeamData?.name} (${data.homePlayer}) vs ${awayTeamData?.name} (${data.awayPlayer})`,
+      start: startDate!,
+      end: endDate!,
+    };
+    onAddEvent?.(event);
   };
 
   return (
@@ -86,7 +73,7 @@ export function EventDialog(props: EventDialogProps) {
           <Input disabled value={endDate?.toLocaleString("fr-FR")} />
         </Field.Root>
         <Stack direction="row" gap={4}>
-          <Field.Root>
+          <Field.Root invalid={!!errors.homeTeam}>
             <Field.Label>Equipe à domicile</Field.Label>
             <Controller
               control={control}
@@ -129,7 +116,7 @@ export function EventDialog(props: EventDialogProps) {
             />
             <Field.ErrorText>{errors.awayTeam?.message}</Field.ErrorText>
           </Field.Root>
-          <Field.Root>
+          <Field.Root invalid={!!errors.awayPlayer}>
             <Field.Label>Joueur</Field.Label>
             <Input {...register("awayPlayer")} />
             <Field.ErrorText>{errors.awayPlayer?.message}</Field.ErrorText>
@@ -139,5 +126,3 @@ export function EventDialog(props: EventDialogProps) {
     </DialogContainer>
   );
 }
-
-export function D() {}
