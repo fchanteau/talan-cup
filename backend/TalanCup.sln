@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Presentation", "1 - Presentation", "{DB2C82BA-CDA9-40D7-AFC0-7152B7E0AAAF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Application", "2 - Application", "{33091C87-6B47-4D5D-A58E-78C8DEE1825C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infrastructure", "3 - Infrastructure", "{D6EDF3E0-F33C-41E7-A7FE-CE41C234B302}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Domain", "4 - Domain", "{C6BB513A-95FA-4D55-B67F-EDE2829F23B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TalanCup.Domain", "TalanCup.Domain\TalanCup.Domain.csproj", "{22735A1E-219B-4A6B-AB7E-0E3C404ED08D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TalanCup.Infrastructure", "TalanCup.Infrastructure\TalanCup.Infrastructure.csproj", "{C507A513-6FA8-4772-B28B-4971D5CD78C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Éléments de solution", "Éléments de solution", "{548C4EA9-F536-40FC-9328-004D7C1FAD3E}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TalanCup.Application", "TalanCup.Application\TalanCup.Application.csproj", "{9757954D-ADD1-4D09-87F3-9E0096D41F23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TalanCup.WebApi", "TalanCup.WebApi\TalanCup.WebApi.csproj", "{264E5783-8791-4D64-B7CF-4936D768EAD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TalanCup.Contracts", "TalanCup.Contracts\TalanCup.Contracts.csproj", "{C5182208-CF8B-4FB7-B23C-A212DB530426}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22735A1E-219B-4A6B-AB7E-0E3C404ED08D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22735A1E-219B-4A6B-AB7E-0E3C404ED08D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22735A1E-219B-4A6B-AB7E-0E3C404ED08D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22735A1E-219B-4A6B-AB7E-0E3C404ED08D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C507A513-6FA8-4772-B28B-4971D5CD78C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C507A513-6FA8-4772-B28B-4971D5CD78C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C507A513-6FA8-4772-B28B-4971D5CD78C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C507A513-6FA8-4772-B28B-4971D5CD78C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9757954D-ADD1-4D09-87F3-9E0096D41F23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9757954D-ADD1-4D09-87F3-9E0096D41F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9757954D-ADD1-4D09-87F3-9E0096D41F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9757954D-ADD1-4D09-87F3-9E0096D41F23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{264E5783-8791-4D64-B7CF-4936D768EAD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{264E5783-8791-4D64-B7CF-4936D768EAD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{264E5783-8791-4D64-B7CF-4936D768EAD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{264E5783-8791-4D64-B7CF-4936D768EAD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5182208-CF8B-4FB7-B23C-A212DB530426}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5182208-CF8B-4FB7-B23C-A212DB530426}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5182208-CF8B-4FB7-B23C-A212DB530426}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5182208-CF8B-4FB7-B23C-A212DB530426}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{22735A1E-219B-4A6B-AB7E-0E3C404ED08D} = {C6BB513A-95FA-4D55-B67F-EDE2829F23B4}
+		{C507A513-6FA8-4772-B28B-4971D5CD78C9} = {D6EDF3E0-F33C-41E7-A7FE-CE41C234B302}
+		{9757954D-ADD1-4D09-87F3-9E0096D41F23} = {33091C87-6B47-4D5D-A58E-78C8DEE1825C}
+		{264E5783-8791-4D64-B7CF-4936D768EAD6} = {DB2C82BA-CDA9-40D7-AFC0-7152B7E0AAAF}
+		{C5182208-CF8B-4FB7-B23C-A212DB530426} = {DB2C82BA-CDA9-40D7-AFC0-7152B7E0AAAF}
+	EndGlobalSection
+EndGlobal

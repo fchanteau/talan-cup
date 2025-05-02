@@ -6,9 +6,12 @@ import {
 } from "@chakra-ui/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
+
+import App from "./App.tsx";
+import { store } from "./common/store.ts";
 
 import "./index.css";
-import App from "./App.tsx";
 
 const customConfig = defineConfig({
   globalCss: {
@@ -21,8 +24,10 @@ const system = createSystem(defaultConfig, customConfig);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ChakraProvider value={system}>
-      <App />
-    </ChakraProvider>
+    <Provider store={store}>
+      <ChakraProvider value={system}>
+        <App />
+      </ChakraProvider>
+    </Provider>
   </StrictMode>
 );

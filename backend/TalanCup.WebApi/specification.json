@@ -1,0 +1,266 @@
+{
+  "x-generator": "NSwag v14.3.0.0 (NJsonSchema v11.2.0.0 (Newtonsoft.Json v13.0.0.0))",
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Events Planner API",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/matchs": {
+      "get": {
+        "tags": [
+          "Matchs"
+        ],
+        "operationId": "Matchs_GetMatchs",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MatchResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Matchs"
+        ],
+        "operationId": "Matchs_AddMatch",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddMatchRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/players": {
+      "get": {
+        "tags": [
+          "Players"
+        ],
+        "operationId": "Players_GetPlayers",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PlayerResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MatchResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "matchId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "startDate": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "endDate": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "homePlayerId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "awayPlayerId": {
+            "type": "string",
+            "format": "guid"
+          }
+        }
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "additionalProperties": {
+          "nullable": true
+        },
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "AddMatchRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "startDate": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "endDate": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "homePlayerId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "awayPlayerId": {
+            "type": "string",
+            "format": "guid"
+          }
+        }
+      },
+      "PlayerResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "playerId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "nameTag": {
+            "type": "string"
+          },
+          "team": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

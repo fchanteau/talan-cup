@@ -8,15 +8,20 @@ import {
 import { type EventImpl } from "@fullcalendar/core/internal";
 import frLocale from "@fullcalendar/core/locales/fr.js"; // French locale
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
-import interactionPlugin, {
-} from "@fullcalendar/interaction"; // for selectable
+import interactionPlugin from "@fullcalendar/interaction"; // for selectable
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { AddEventDialog } from "./AddEventDialog";
 import { ChakraFullCalendarWrapper } from "./ChakraFullCalendarWrapper";
 import { ShowMatchDialog } from "./ShowMatchDialog";
+
+import { useAppSelector } from "@/common/store";
+import { formatDateTime } from "@/common/utils/date";
+import { useGetMatchsQuery } from "@/features/match/match.api";
+import { selectAllMatchs } from "@/features/match/match.selector";
+import { useGetPlayersQuery } from "@/features/players/players.api";
 
 type SelectedDates = {
   start: Date | null;
@@ -24,14 +29,28 @@ type SelectedDates = {
 };
 
 export default function Calendar() {
-  const [events, setEvents] = useState<EventInput[]>([
-    {
-      title: "Event 1",
-      start: "2025-04-30 08:00",
-      end: "2025-04-30 08:15",
-      id: "1",
-    },
-  ]);
+  const { isLoading, isError } = useGetMatchsQuery();
+  const matchs = useAppSelector(selectAllMatchs);
+  // const [events, setEvents] = useState<EventInput[]>([
+  //   {
+  //     title: "Event 1",
+  //     start: "2025-04-30 08:00",
+  //     end: "2025-04-30 08:15",
+  //     id: "1",
+  //   },
+  // ]);
+
+  const events: EventInput[] = useMemo(() => {
+    return matchs.map((match) => {
+      return {
+        title: "Match" + match.matchId,
+        start: formatDateTime(match.startDate),
+        end: formatDateTime(match.endDate),
+        id: match.matchId,
+      } as EventInput;
+    });
+  }, [matchs]);
+
   const [selectedMatch, setSelectedMatch] = useState<EventImpl | null>(null);
   const [dialogType, setDialogType] = useState<"add" | "view">("add");
   const { open, onOpen, onToggle, onClose } = useDisclosure();
@@ -57,7 +76,7 @@ export default function Calendar() {
   };
 
   const handleAddEvent = (event: EventInput) => {
-    setEvents((prev) => [...prev, event]);
+    //setEvents((prev) => [...prev, event]);
     onClose(); // Close the dialog after adding the event
   };
 
@@ -105,10 +124,12 @@ export default function Calendar() {
       ) : (
         <ShowMatchDialog
           open={open}
-          onOpenChange={onToggle}    
-          match={selectedMatch}>
-            {""}  
-          </ShowMatchDialog>)}
+          onOpenChange={onToggle}
+          match={selectedMatch}
+        >
+          {""}
+        </ShowMatchDialog>
+      )}
     </ChakraFullCalendarWrapper>
   );
 }

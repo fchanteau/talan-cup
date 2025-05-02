@@ -1,25 +1,22 @@
 import {
   type SelectRootProps,
-  createListCollection,
   Select,
   Portal,
+  Stack,
+  Span,
 } from "@chakra-ui/react";
 
 import { useDialogContentRef } from "./DialogContainer";
 
-import { TEAMS } from "@/features/teams/teams.model";
+import { type PlayerResponse } from "@/types/TalanCupApi";
 
-export type SelectTeamProps = SelectRootProps & {
+export type SelectPlayerProps = SelectRootProps & {
   contentRef: React.RefObject<HTMLDivElement | null>;
+  label: string;
 };
 
-export function SelectTeam(props: SelectTeamProps) {
+export function SelectPlayer(props: SelectPlayerProps) {
   const contentRef = useDialogContentRef();
-  const teams = createListCollection({
-    items: TEAMS,
-    itemToString: (item) => item.name,
-    itemToValue: (item) => item.id,
-  });
 
   return (
     <Select.Root
@@ -29,9 +26,10 @@ export function SelectTeam(props: SelectTeamProps) {
       onValueChange={props.onValueChange}
     >
       <Select.HiddenSelect />
+      <Select.Label>{props.label}</Select.Label>
       <Select.Control>
         <Select.Trigger>
-          <Select.ValueText placeholder="Sélectionne l'équipe" />
+          <Select.ValueText placeholder="Select plan" />
         </Select.Trigger>
         <Select.IndicatorGroup>
           <Select.Indicator />
@@ -40,9 +38,14 @@ export function SelectTeam(props: SelectTeamProps) {
       <Portal container={contentRef!}>
         <Select.Positioner>
           <Select.Content>
-            {teams.items.map((team) => (
-              <Select.Item item={team} key={team.id}>
-                {team.name}
+            {props.collection.items.map((player: PlayerResponse) => (
+              <Select.Item item={player} key={player.playerId}>
+                <Stack gap="0">
+                  <Select.ItemText>{player.nameTag}</Select.ItemText>
+                  <Span color="fg.muted" textStyle="xs">
+                    {player.team}
+                  </Span>
+                </Stack>
                 <Select.ItemIndicator />
               </Select.Item>
             ))}

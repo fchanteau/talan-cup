@@ -2,10 +2,16 @@ import { z } from "zod";
 
 export const useMatchSchema = () => {
   return z.object({
-    homeTeam: z.string().nonempty("L'équipe à domicile est requise").array(),
-    homePlayer: z.string().nonempty("Le joueur à domicile est requis"),
-    awayTeam: z.string().nonempty("L'équipe à l'extérieur est requise").array(),
-    awayPlayer: z.string().nonempty("Le joueur à l'extérieur est requis"),
+    homePlayer: z
+      .string()
+      .nonempty()
+      .array()
+      .min(1, "L'équipe à domicile est requise"),
+    awayPlayer: z
+      .string()
+      .nonempty()
+      .array()
+      .min(1, "L'équipe à l'extérieur est requise"),
   });
 };
 
