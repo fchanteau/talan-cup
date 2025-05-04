@@ -18,10 +18,11 @@ import { ChakraFullCalendarWrapper } from "./ChakraFullCalendarWrapper";
 import { ShowMatchDialog } from "./ShowMatchDialog";
 
 import { useAppSelector } from "@/common/store";
-import { formatDateTime } from "@/common/utils/date";
+import { formatDateForCalendar } from "@/common/utils/date";
 import { useGetMatchsQuery } from "@/features/match/match.api";
 import { selectAllMatchs } from "@/features/match/match.selector";
 import { useGetPlayersQuery } from "@/features/players/players.api";
+import { selectAllPlayers } from "@/features/players/players.selector";
 
 type SelectedDates = {
   start: Date | null;
@@ -29,31 +30,27 @@ type SelectedDates = {
 };
 
 export default function Calendar() {
-  const { isLoading, isError } = useGetMatchsQuery();
+  useGetMatchsQuery();
+  useGetPlayersQuery();
   const matchs = useAppSelector(selectAllMatchs);
-  // const [events, setEvents] = useState<EventInput[]>([
-  //   {
-  //     title: "Event 1",
-  //     start: "2025-04-30 08:00",
-  //     end: "2025-04-30 08:15",
-  //     id: "1",
-  //   },
-  // ]);
-
+  const players = useAppSelector(selectAllPlayers);
+  
   const events: EventInput[] = useMemo(() => {
     return matchs.map((match) => {
+      const homePlayer = players.find(p => p.playerId === match.homePlayerId);
+      const awayPlayer = players.find(p => p.playerId === match.awayPlayerId);
       return {
-        title: "Match" + match.matchId,
-        start: formatDateTime(match.startDate),
-        end: formatDateTime(match.endDate),
+        title: `${homePlayer?.nameTag} (${homePlayer?.team}) vs ${awayPlayer?.nameTag} (${awayPlayer?.team})`,
+        start: formatDateForCalendar(match.startDate),
+        end: formatDateForCalendar(match.endDate),
         id: match.matchId,
       } as EventInput;
     });
-  }, [matchs]);
+  }, [matchs, players]);
 
   const [selectedMatch, setSelectedMatch] = useState<EventImpl | null>(null);
-  const [dialogType, setDialogType] = useState<"add" | "view">("add");
-  const { open, onOpen, onToggle, onClose } = useDisclosure();
+  const { open: openAdd, onOpen: onOpenAdd, onToggle: onToggleAdd, onClose: onCloseAdd } = useDisclosure();
+  const { open: openDetail, onOpen: onOpenDetail, onToggle: onToggleDetail, onClose: onCloseDetail } = useDisclosure();
 
   const [selectedDates, setSelectedDates] = useState<SelectedDates>({
     start: null,
@@ -65,19 +62,17 @@ export default function Calendar() {
       start: arg.start,
       end: arg.end,
     });
-    setDialogType("add");
-    onOpen();
+    onOpenAdd();
   };
 
   const onEventClick = (arg: EventClickArg) => {
-    setDialogType("view");
     setSelectedMatch(arg.event);
-    onOpen();
+    onOpenDetail();
   };
 
   const handleAddEvent = (event: EventInput) => {
     //setEvents((prev) => [...prev, event]);
-    onClose(); // Close the dialog after adding the event
+    onCloseAdd(); // Close the dialog after adding the event
   };
 
   const handleSelectAllow = (selectInfo: DateSpanApi) => {
@@ -111,25 +106,26 @@ export default function Calendar() {
           />
         </Card.Body>
       </Card.Root>
-      {dialogType === "add" ? (
+
         <AddEventDialog
-          open={open}
-          onOpenChange={onToggle}
+          open={openAdd}
+          onOpenChange={onToggleAdd}
           startDate={selectedDates.start}
           endDate={selectedDates.end}
           onAddEvent={handleAddEvent}
+          
         >
-          {" "}
+          {""}
         </AddEventDialog>
-      ) : (
+
         <ShowMatchDialog
-          open={open}
-          onOpenChange={onToggle}
+          open={openDetail}
+          onOpenChange={onToggleDetail}
           match={selectedMatch}
         >
           {""}
         </ShowMatchDialog>
-      )}
+
     </ChakraFullCalendarWrapper>
   );
 }

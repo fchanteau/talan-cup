@@ -1,21 +1,20 @@
 import {
   type DialogRootProps,
-  createListCollection,
   Stack,
   Field,
   Input,
 } from "@chakra-ui/react";
 import { type EventInput } from "@fullcalendar/core/index.js";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRef, useMemo } from "react";
+import { useRef } from "react";
 import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 
 import { DialogContainer } from "./DialogContainer";
 import { SelectPlayer } from "./SelectPlayer";
 import { type MatchSchema, useMatchSchema } from "../calendar.model";
 
-import { useGetPlayersQuery } from "@/features/players/players.api";
-import { selectTeamById } from "@/features/teams/teams.model";
+import { dateToUnixTime } from "@/common/utils/date";
+import { useAddMatchMutation } from "@/features/match/match.api";
 
 type AddEventDialogProps = DialogRootProps & {
   startDate: Date | null;
@@ -24,15 +23,9 @@ type AddEventDialogProps = DialogRootProps & {
 };
 
 export function AddEventDialog(props: AddEventDialogProps) {
-  const { data } = useGetPlayersQuery();
-
-  const players = createListCollection({
-    items: data ?? [],
-    itemToString: (item) => `${item.nameTag} (${item.team})`,
-    itemToValue: (item) => item.playerId,
-  });
   const contentRef = useRef<HTMLDivElement>(null);
-  const { startDate, endDate, onAddEvent, ...restProps } = props;
+  const { startDate, endDate, ...restProps } = props;
+  const [addMatch] = useAddMatchMutation();
 
   const matchSchema = useMatchSchema();
   const {
@@ -56,7 +49,12 @@ export function AddEventDialog(props: AddEventDialogProps) {
     //   start: startDate!,
     //   end: endDate!,
     // };
-    onAddEvent?.(event);
+    addMatch({
+      homePlayerId: data.homePlayer[0],
+      awayPlayerId: data.awayPlayer[0],
+      startDate: dateToUnixTime(startDate!),
+      endDate: dateToUnixTime(endDate!),
+    });
   };
 
   return (
@@ -65,6 +63,7 @@ export function AddEventDialog(props: AddEventDialogProps) {
       onSuccess={handleSubmit(onSubmit)}
       labelSuccess={"Ajouter"}
       labelClose={"Annuler"}
+      placement={"center"}
       {...restProps}
     >
       <Stack>
@@ -92,7 +91,6 @@ export function AddEventDialog(props: AddEventDialogProps) {
                   field.onChange(value);
                 }}
                 onInteractOutside={() => field.onBlur()}
-                collection={players}
               />
             )}
           />
@@ -111,7 +109,6 @@ export function AddEventDialog(props: AddEventDialogProps) {
                 contentRef={contentRef}
                 onValueChange={({ value }) => field.onChange(value)}
                 onInteractOutside={() => field.onBlur()}
-                collection={players}
               />
             )}
           />

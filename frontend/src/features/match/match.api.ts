@@ -3,7 +3,7 @@ import { type EntityState } from "@reduxjs/toolkit";
 import { matchsAdapter, matchsInitialState, type Match } from "./match.model";
 
 import { api } from "@/common/api";
-import { type MatchResponse } from "@/types/TalanCupApi";
+import { type AddMatchRequest, type MatchResponse } from "@/types/TalanCupApi";
 
 export const matchApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -15,8 +15,29 @@ export const matchApi = api.injectEndpoints({
       transformResponse: (response: MatchResponse[]) => {
         return matchsAdapter.setAll(matchsInitialState, response);
       },
+      providesTags: ["MATCHS"]
     }),
+    addMatch: build.mutation<void, AddMatchRequest>({
+      query: (body) => ({
+        url: "api/matchs",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["MATCHS"]
+      // async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+      //   const patchResult = dispatch(
+      //     matchApi.util.updateQueryData("getMatchs", undefined, (draft) => {
+      //       matchsAdapter.addOne(draft, arg);
+      //     })
+      //   );
+      //   try {
+      //     await queryFulfilled;
+      //   } catch {
+      //     patchResult.undo();
+      //   }
+      // },
+    })
   }),
 });
 
-export const { useGetMatchsQuery } = matchApi;
+export const { useGetMatchsQuery, useAddMatchMutation } = matchApi;

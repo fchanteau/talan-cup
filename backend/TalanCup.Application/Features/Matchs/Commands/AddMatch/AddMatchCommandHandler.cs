@@ -20,7 +20,8 @@ public class AddMatchCommandHandler(ITalanCupContext dbContext) : IRequestHandle
 
     private async Task<ErrorOr<Success>> IsSlotAvailableAsync(long startDate, CancellationToken cancellationToken)
     {
-        var isAvailable = await dbContext.Matchs.AnyAsync(m => m.StartDate == startDate);
+        var isAvailable = !await
+            dbContext.Matchs.AnyAsync(m => m.StartDate == startDate);
 
         return isAvailable ? Result.Success : Error.Failure("MatchAlreadyExists", "A match already exists at this time");
     }

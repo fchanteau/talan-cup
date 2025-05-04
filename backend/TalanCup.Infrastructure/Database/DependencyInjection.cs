@@ -28,6 +28,7 @@ public static class DependencyInjection
         // NO NEED RIGHT NOW BECAUSE INMEMORY DATABASE
         //logger.LogInformation("Initializing database");
         //await dbInitializer.InitializeAsync(cancellationToken);
+        logger.LogInformation(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
 
         logger.LogInformation("Seeding database");
         await dbInitializer.SeedAsync(true, cancellationToken);

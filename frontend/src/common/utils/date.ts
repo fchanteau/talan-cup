@@ -8,6 +8,10 @@ export function formatDateTime(date: number): string {
   return format(fromUnixTime(date), "dd/MM/yyyy HH:mm");
 }
 
+export function formatDateForCalendar(date: number): string {
+  return format(fromUnixTime(date), "yyyy-MM-dd'T'HH:mm:ss");
+}
+
 /**
  * Converts a date string in format "dd/MM/yyyy HH:mm" to a Unix timestamp
  * @param dateString The date string in format "dd/MM/yyyy HH:mm"
