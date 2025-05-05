@@ -8,6 +8,9 @@ export function Navbar() {
       <Container paddingBlock={4}>
         <HStack justifyContent={"space-between"}>
           <TalanLogo height={"50px"} />
+          <Heading as={"h1"} size={"6xl"} color="teal" fontWeight={"bold"}>
+            Book a match
+          </Heading>
           <Heading as={"h1"} size={"4xl"} color="teal">
             Talan CUP #6
           </Heading>

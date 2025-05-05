@@ -34,11 +34,11 @@ export default function Calendar() {
   useGetPlayersQuery();
   const matchs = useAppSelector(selectAllMatchs);
   const players = useAppSelector(selectAllPlayers);
-  
+
   const events: EventInput[] = useMemo(() => {
     return matchs.map((match) => {
-      const homePlayer = players.find(p => p.playerId === match.homePlayerId);
-      const awayPlayer = players.find(p => p.playerId === match.awayPlayerId);
+      const homePlayer = players.find((p) => p.playerId === match.homePlayerId);
+      const awayPlayer = players.find((p) => p.playerId === match.awayPlayerId);
       return {
         title: `${homePlayer?.nameTag} (${homePlayer?.team}) vs ${awayPlayer?.nameTag} (${awayPlayer?.team})`,
         start: formatDateForCalendar(match.startDate),
@@ -49,8 +49,16 @@ export default function Calendar() {
   }, [matchs, players]);
 
   const [selectedMatch, setSelectedMatch] = useState<EventImpl | null>(null);
-  const { open: openAdd, onOpen: onOpenAdd, onToggle: onToggleAdd, onClose: onCloseAdd } = useDisclosure();
-  const { open: openDetail, onOpen: onOpenDetail, onToggle: onToggleDetail, onClose: onCloseDetail } = useDisclosure();
+  const {
+    open: openAdd,
+    onOpen: onOpenAdd,
+    onToggle: onToggleAdd,
+  } = useDisclosure();
+  const {
+    open: openDetail,
+    onOpen: onOpenDetail,
+    onToggle: onToggleDetail,
+  } = useDisclosure();
 
   const [selectedDates, setSelectedDates] = useState<SelectedDates>({
     start: null,
@@ -68,11 +76,6 @@ export default function Calendar() {
   const onEventClick = (arg: EventClickArg) => {
     setSelectedMatch(arg.event);
     onOpenDetail();
-  };
-
-  const handleAddEvent = (event: EventInput) => {
-    //setEvents((prev) => [...prev, event]);
-    onCloseAdd(); // Close the dialog after adding the event
   };
 
   const handleSelectAllow = (selectInfo: DateSpanApi) => {
@@ -103,29 +106,29 @@ export default function Calendar() {
             select={onDateSelect}
             selectAllow={handleSelectAllow}
             eventClick={onEventClick}
+            validRange={{ start: new Date() }}
           />
         </Card.Body>
       </Card.Root>
 
-        <AddEventDialog
-          open={openAdd}
-          onOpenChange={onToggleAdd}
-          startDate={selectedDates.start}
-          endDate={selectedDates.end}
-          onAddEvent={handleAddEvent}
-          
-        >
-          {""}
-        </AddEventDialog>
+      <AddEventDialog
+        open={openAdd}
+        onOpenChange={onToggleAdd}
+        startDate={selectedDates.start}
+        endDate={selectedDates.end}
+        onConfirm={onToggleAdd}
+      >
+        {""}
+      </AddEventDialog>
 
-        <ShowMatchDialog
-          open={openDetail}
-          onOpenChange={onToggleDetail}
-          match={selectedMatch}
-        >
-          {""}
-        </ShowMatchDialog>
-
+      <ShowMatchDialog
+        open={openDetail}
+        onOpenChange={onToggleDetail}
+        match={selectedMatch}
+        onConfirm={onToggleDetail}
+      >
+        {""}
+      </ShowMatchDialog>
     </ChakraFullCalendarWrapper>
   );
 }

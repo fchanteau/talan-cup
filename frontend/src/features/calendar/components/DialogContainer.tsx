@@ -21,6 +21,7 @@ export type DialogContainerProps = DialogRootProps & {
   labelSuccess?: string;
   labelClose?: string;
   children?: React.ReactNode;
+  showFooter: boolean;
 };
 
 export function DialogContainer(props: DialogContainerProps) {
@@ -40,12 +41,14 @@ export function DialogContainer(props: DialogContainerProps) {
             >
               <Dialog.Body>{props.children}</Dialog.Body>
             </DialogContentRefContext.Provider>
-            <Dialog.Footer>
-              <Dialog.ActionTrigger asChild>
-                <Button variant="outline">{props.labelClose}</Button>
-              </Dialog.ActionTrigger>
-              <Button onClick={props.onSuccess}>{props.labelSuccess}</Button>
-            </Dialog.Footer>
+            {props.showFooter && (
+              <Dialog.Footer>
+                <Dialog.ActionTrigger asChild>
+                  <Button variant="outline">{props.labelClose}</Button>
+                </Dialog.ActionTrigger>
+                <Button onClick={props.onSuccess}>{props.labelSuccess}</Button>
+              </Dialog.Footer>
+            )}
             <Dialog.CloseTrigger asChild>
               <CloseButton size="sm" />
             </Dialog.CloseTrigger>

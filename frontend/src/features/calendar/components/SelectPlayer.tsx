@@ -9,12 +9,12 @@ import {
 
 import { useDialogContentRef } from "./DialogContainer";
 
-import { useGetPlayersQuery } from "@/features/players/players.api";
-import { type PlayerResponse } from "@/types/TalanCupApi";
 import { useAppSelector } from "@/common/store";
+import { useGetPlayersQuery } from "@/features/players/players.api";
 import { selectAllPlayers } from "@/features/players/players.selector";
+import { type PlayerResponse } from "@/types/TalanCupApi";
 
-export type SelectPlayerProps = Omit<SelectRootProps, 'collection'> & {
+export type SelectPlayerProps = Omit<SelectRootProps, "collection"> & {
   contentRef: React.RefObject<HTMLDivElement | null>;
   label: string;
 };
