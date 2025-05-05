@@ -8,7 +8,7 @@ import {
   Text,
   Box,
 } from "@chakra-ui/react";
-import { LuGithub, LuLinkedin, LuX } from "react-icons/lu";
+import { LuGithub, LuLinkedin } from "react-icons/lu";
 
 import { TalanLogo } from "@/components/TalanLogo";
 
@@ -40,7 +40,6 @@ export function Footer() {
 }
 
 const socialLinks = [
-  { href: "https://x.com", icon: <LuX /> },
   { href: "https://github.com/fchanteau", icon: <LuGithub /> },
   {
     href: "https://www.linkedin.com/in/fran%C3%A7ois-chanteau-2ab742153/",

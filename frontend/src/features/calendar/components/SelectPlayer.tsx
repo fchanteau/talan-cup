@@ -1,21 +1,27 @@
 import {
   type SelectRootProps,
   Select,
-  Portal,
   Stack,
   Span,
   createListCollection,
+  SelectValueText,
 } from "@chakra-ui/react";
 
-import { useDialogContentRef } from "./DialogContainer";
+import { useDialogContentRef } from "../hooks/useDialogContentRef";
 
 import { useAppSelector } from "@/common/store";
+import {
+  SelectContent,
+  SelectItem,
+  SelectLabel,
+  SelectRoot,
+  SelectTrigger,
+} from "@/components/chakra/select";
 import { useGetPlayersQuery } from "@/features/players/players.api";
 import { selectAllPlayers } from "@/features/players/players.selector";
 import { type PlayerResponse } from "@/types/TalanCupApi";
 
 export type SelectPlayerProps = Omit<SelectRootProps, "collection"> & {
-  contentRef: React.RefObject<HTMLDivElement | null>;
   label: string;
 };
 
@@ -32,40 +38,29 @@ export function SelectPlayer(props: SelectPlayerProps) {
   });
 
   return (
-    <Select.Root
-      collection={players}
-      size="sm"
+    <SelectRoot
       defaultValue={props.defaultValue}
       onValueChange={props.onValueChange}
       disabled={isLoading}
+      {...props}
+      collection={players}
     >
-      <Select.HiddenSelect />
-      <Select.Label>{props.label}</Select.Label>
-      <Select.Control>
-        <Select.Trigger>
-          <Select.ValueText placeholder="Select player" />
-        </Select.Trigger>
-        <Select.IndicatorGroup>
-          <Select.Indicator />
-        </Select.IndicatorGroup>
-      </Select.Control>
-      <Portal container={contentRef!}>
-        <Select.Positioner>
-          <Select.Content>
-            {players.items.map((player: PlayerResponse) => (
-              <Select.Item item={player} key={player.playerId}>
-                <Stack gap="0">
-                  <Select.ItemText>{player.nameTag}</Select.ItemText>
-                  <Span color="fg.muted" textStyle="xs">
-                    {player.team}
-                  </Span>
-                </Stack>
-                <Select.ItemIndicator />
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Portal>
-    </Select.Root>
+      <SelectLabel>{props.label}</SelectLabel>
+      <SelectTrigger>
+        <SelectValueText placeholder="Selectionner le joueur" />
+      </SelectTrigger>
+      <SelectContent portalRef={contentRef}>
+        {players.items.map((player: PlayerResponse) => (
+          <SelectItem item={player} key={player.playerId}>
+            <Stack gap="0">
+              <Select.ItemText>{player.nameTag}</Select.ItemText>
+              <Span color="fg.muted" textStyle="xs">
+                {player.team}
+              </Span>
+            </Stack>
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </SelectRoot>
   );
 }
