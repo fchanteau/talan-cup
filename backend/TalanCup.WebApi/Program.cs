@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.AddWebInfrastructure();
+builder.AddWebInfrastructure(builder.Configuration);
 
 builder.Services.AddApplication();
 builder.AddInfrastructure(builder.Configuration);
@@ -14,13 +14,12 @@ builder.AddInfrastructure(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.EnvironmentName != "NSwag")
+if(app.Environment.EnvironmentName != "NSwag")
 {
     await app.UseInfrastructureAsync();
 }
 
 app.UseWebInfrastructure(builder.Configuration);
-
 
 app.Run();
 

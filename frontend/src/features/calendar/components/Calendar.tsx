@@ -89,6 +89,7 @@ export default function Calendar() {
         <Card.Body>
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            height={"65vh"}
             initialView="timeGridWeek"
             headerToolbar={{
               left: "prev,next",
@@ -98,7 +99,7 @@ export default function Calendar() {
             events={events}
             locale={frLocale} // Set the locale to French
             allDayText=""
-            slotMinTime={"08:00:00"}
+            slotMinTime={"10:00:00"}
             slotMaxTime={"20:00:00"}
             slotDuration={"00:15:00"} // 15 minutes
             selectable={true}

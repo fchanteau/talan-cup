@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TalanCup.Application\TalanCup.Application.csproj" />
     <ProjectReference Include="..\TalanCup.Domain\TalanCup.Domain.csproj" />
+    <ProjectReference Include="..\TalanCup.Shared\TalanCup.Shared.csproj" />
   </ItemGroup>
 
 </Project>

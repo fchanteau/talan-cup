@@ -1,4 +1,4 @@
-﻿namespace TalanCup.WebApi.Infrastructure.Cors;
+﻿namespace TalanCup.Shared.Options;
 
 public class CorsOption
 {

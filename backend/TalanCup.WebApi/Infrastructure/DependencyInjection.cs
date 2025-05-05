@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
+using TalanCup.WebApi.Infrastructure.Authentication;
 using TalanCup.WebApi.Infrastructure.Cors;
 
 namespace TalanCup.WebApi.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static void AddWebInfrastructure(this IHostApplicationBuilder builder)
+    public static void AddWebInfrastructure(this IHostApplicationBuilder builder, IConfiguration configuration)
     {
         builder.Services.AddControllers()
             .AddJsonOptions(options =>
@@ -28,14 +29,16 @@ public static class DependencyInjection
             config.Version = "v1";
         });
 
+        builder.Services.AddHttpContextAccessor();
         builder.Services.AddTalanCupCors();
+        builder.Services.AddTalanCupAuthentication(configuration);
     }
 
     public static void UseWebInfrastructure(this WebApplication app, IConfiguration configuration)
     {
         app.UseTalanCupCors(configuration);
         app.UseHttpsRedirection();
-        //app.UseAuthorization();
+        app.UseAuthorization();
         app.MapControllers();
 
         app.UseOpenApi();

@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TalanCup.WebApi", "TalanCup
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TalanCup.Contracts", "TalanCup.Contracts\TalanCup.Contracts.csproj", "{C5182208-CF8B-4FB7-B23C-A212DB530426}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Shared", "0 - Shared", "{B2009659-92E0-4752-A7B2-073DE748B950}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TalanCup.Shared", "TalanCup.Shared\TalanCup.Shared.csproj", "{615DF4AF-3F0F-4610-9CD3-54CCC50B9B02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +57,10 @@ Global
 		{C5182208-CF8B-4FB7-B23C-A212DB530426}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5182208-CF8B-4FB7-B23C-A212DB530426}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5182208-CF8B-4FB7-B23C-A212DB530426}.Release|Any CPU.Build.0 = Release|Any CPU
+		{615DF4AF-3F0F-4610-9CD3-54CCC50B9B02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{615DF4AF-3F0F-4610-9CD3-54CCC50B9B02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{615DF4AF-3F0F-4610-9CD3-54CCC50B9B02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{615DF4AF-3F0F-4610-9CD3-54CCC50B9B02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,5 +71,6 @@ Global
 		{9757954D-ADD1-4D09-87F3-9E0096D41F23} = {33091C87-6B47-4D5D-A58E-78C8DEE1825C}
 		{264E5783-8791-4D64-B7CF-4936D768EAD6} = {DB2C82BA-CDA9-40D7-AFC0-7152B7E0AAAF}
 		{C5182208-CF8B-4FB7-B23C-A212DB530426} = {DB2C82BA-CDA9-40D7-AFC0-7152B7E0AAAF}
+		{615DF4AF-3F0F-4610-9CD3-54CCC50B9B02} = {B2009659-92E0-4752-A7B2-073DE748B950}
 	EndGlobalSection
 EndGlobal

@@ -1,5 +1,6 @@
 ﻿using ErrorOr;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TalanCup.Application.Features.Players.Queries.GetPlayers;
 using TalanCup.Contracts;
@@ -7,6 +8,7 @@ using TalanCup.Contracts;
 namespace TalanCup.WebApi.Controllers;
 [Route("api/players")]
 [ApiController]
+[Authorize]
 public class PlayersController(IMediator mediator) : ApiController
 {
     [HttpGet]

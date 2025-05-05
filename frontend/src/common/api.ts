@@ -2,12 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // import { jwtDecode } from "jwt-decode";
 
 // import { actionCreators } from "./store";
-// import {
-//   clearStorage,
-//   getRefreshToken,
-//   getToken,
-//   saveTokenInfos,
-// } from "../features/auth/auth.service";
+import { getToken } from "../features/auth/auth.service";
 
 // import { type LoginResponse } from "@/types/Api";
 
@@ -22,10 +17,10 @@ const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_API_URL,
   prepareHeaders: (headers) => {
     // JWT
-    // const token = getToken();
-    // if (token) {
-    //   headers.set("Authorization", `Bearer ${token}`);
-    // }
+    const token = getToken();
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
+    }
 
     // default headers
     headers.set("Accept", "application/json");

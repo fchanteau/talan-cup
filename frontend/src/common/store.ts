@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { api } from "./api";
 
+import { authSlice } from "@/features/auth/auth.slice";
+
 const rootReducer = combineReducers({
   [api.reducerPath]: api.reducer,
-  //   auth: authSlice.reducer,
+  auth: authSlice.reducer,
 });
 
 export const actionCreators = {
-  //   [authSlice.name]: { ...authSlice.actions },
+  [authSlice.name]: { ...authSlice.actions },
 };
 
 export const store = configureStore({

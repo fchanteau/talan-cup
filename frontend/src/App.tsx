@@ -1,4 +1,4 @@
-import { Flex, Box } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 import { Footer } from "./layout/Footer";
 import { Navbar } from "./layout/Navbar";
@@ -11,11 +11,11 @@ function App() {
       minHeight="100vh" // Make the layout at least full viewport height
     >
       <Navbar />
-      <Box flex="1">
+      <Flex flex="1">
         {/* This will grow to fill available space */}
         {/* <Outlet /> */}
         <MainPage />
-      </Box>
+      </Flex>
       <Footer />
     </Flex>
   );

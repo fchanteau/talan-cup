@@ -1,4 +1,6 @@
-﻿namespace TalanCup.WebApi.Infrastructure.Cors;
+﻿using TalanCup.Shared.Options;
+
+namespace TalanCup.WebApi.Infrastructure.Cors;
 
 public static class DependencyInjection
 {

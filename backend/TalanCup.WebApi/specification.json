@@ -6,6 +6,58 @@
     "version": "v1"
   },
   "paths": {
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "Auth_Login",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/matchs": {
       "get": {
         "tags": [
@@ -112,6 +164,71 @@
         }
       }
     },
+    "/api/matchs/{id}": {
+      "delete": {
+        "tags": [
+          "Matchs"
+        ],
+        "operationId": "Matchs_DeleteMatch",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/players": {
       "get": {
         "tags": [
@@ -168,29 +285,16 @@
   },
   "components": {
     "schemas": {
-      "MatchResponse": {
+      "LoginResponse": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "matchId": {
+          "playerId": {
             "type": "string",
             "format": "guid"
           },
-          "startDate": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "endDate": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "homePlayerId": {
-            "type": "string",
-            "format": "guid"
-          },
-          "awayPlayerId": {
-            "type": "string",
-            "format": "guid"
+          "token": {
+            "type": "string"
           }
         }
       },
@@ -223,10 +327,27 @@
           }
         }
       },
-      "AddMatchRequest": {
+      "LoginRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "login"
+        ],
+        "properties": {
+          "login": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "MatchResponse": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "matchId": {
+            "type": "string",
+            "format": "guid"
+          },
           "startDate": {
             "type": "integer",
             "format": "int64"
@@ -242,6 +363,36 @@
           "awayPlayerId": {
             "type": "string",
             "format": "guid"
+          }
+        }
+      },
+      "AddMatchRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "startDate",
+          "endDate",
+          "homePlayerId",
+          "awayPlayerId"
+        ],
+        "properties": {
+          "startDate": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "endDate": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "homePlayerId": {
+            "type": "string",
+            "format": "guid",
+            "minLength": 1
+          },
+          "awayPlayerId": {
+            "type": "string",
+            "format": "guid",
+            "minLength": 1
           }
         }
       },

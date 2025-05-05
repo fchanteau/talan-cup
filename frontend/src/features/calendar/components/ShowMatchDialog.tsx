@@ -18,7 +18,8 @@ export function ShowMatchDialog(props: ShowMatchDialogProps) {
       size="lg"
       labelClose="Fermer"
       labelSuccess="OK"
-      showFooter={false}
+      role="alertdialog"
+      showFooter={true}
       onSuccess={props.onConfirm}
     >
       <DataList.Root orientation="horizontal">

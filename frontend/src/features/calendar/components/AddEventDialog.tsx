@@ -7,8 +7,11 @@ import { DialogContainer } from "./DialogContainer";
 import { SelectPlayer } from "./SelectPlayer";
 import { type MatchSchema, useMatchSchema } from "../calendar.model";
 
+import { useAppSelector } from "@/common/store";
 import { dateToUnixTime } from "@/common/utils/date";
+import { selectConnectedPlayerId as selectConnectedPlayerId } from "@/features/auth/auth.selector";
 import { useAddMatchMutation } from "@/features/match/match.api";
+import { selectPlayerById } from "@/features/players/players.selector";
 
 type AddEventDialogProps = DialogRootProps & {
   startDate: Date | null;
@@ -19,6 +22,10 @@ type AddEventDialogProps = DialogRootProps & {
 export function AddEventDialog(props: AddEventDialogProps) {
   const contentRef = useRef<HTMLDivElement>(null);
   const { startDate, endDate, ...restProps } = props;
+  const homePlayerId = useAppSelector(selectConnectedPlayerId);
+  const homePlayer = useAppSelector((state) =>
+    selectPlayerById(state, homePlayerId!)
+  );
   const [addMatch] = useAddMatchMutation();
 
   const matchSchema = useMatchSchema();
@@ -30,7 +37,6 @@ export function AddEventDialog(props: AddEventDialogProps) {
   } = useForm<MatchSchema>({
     resolver: zodResolver(matchSchema),
     defaultValues: {
-      homePlayer: [],
       awayPlayer: [],
     },
   });
@@ -39,7 +45,7 @@ export function AddEventDialog(props: AddEventDialogProps) {
     console.log(data);
 
     addMatch({
-      homePlayerId: data.homePlayer[0],
+      homePlayerId: homePlayerId!,
       awayPlayerId: data.awayPlayer[0],
       startDate: dateToUnixTime(startDate!),
       endDate: dateToUnixTime(endDate!),
@@ -68,25 +74,12 @@ export function AddEventDialog(props: AddEventDialogProps) {
           <Field.Label>Fin</Field.Label>
           <Input disabled value={endDate?.toLocaleString("fr-FR")} />
         </Field.Root>
-        <Field.Root invalid={!!errors.homePlayer}>
-          <Controller
-            control={control}
-            name="homePlayer"
-            render={({ field }) => (
-              <SelectPlayer
-                label="Joueur domicile"
-                name={field.name}
-                value={field.value}
-                contentRef={contentRef}
-                onValueChange={({ value }) => {
-                  console.log(value);
-                  field.onChange(value);
-                }}
-                onInteractOutside={() => field.onBlur()}
-              />
-            )}
+        <Field.Root>
+          <Field.Label>Joueur à domicile</Field.Label>
+          <Input
+            disabled
+            value={`${homePlayer?.nameTag} (${homePlayer?.team})`}
           />
-          <Field.ErrorText>{errors.homePlayer?.message}</Field.ErrorText>
         </Field.Root>
 
         <Field.Root invalid={!!errors.awayPlayer}>

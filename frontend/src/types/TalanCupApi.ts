@@ -10,12 +10,9 @@
 
 
 
-export interface MatchResponse {
-    matchId: string;
-    startDate: number;
-    endDate: number;
-    homePlayerId: string;
-    awayPlayerId: string;
+export interface LoginResponse {
+    playerId: string;
+    token: string;
 }
 
 export interface ProblemDetails {
@@ -26,6 +23,18 @@ export interface ProblemDetails {
     instance: string | undefined;
 
     [key: string]: any;
+}
+
+export interface LoginRequest {
+    login: string;
+}
+
+export interface MatchResponse {
+    matchId: string;
+    startDate: number;
+    endDate: number;
+    homePlayerId: string;
+    awayPlayerId: string;
 }
 
 export interface AddMatchRequest {
