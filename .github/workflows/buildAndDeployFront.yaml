@@ -28,14 +28,16 @@ jobs:
           version: latest
 
       - name: Install dependencies
+        working-directory: ./frontend
         run: pnpm install --frozen-lockfile
 
       - name: Build the application
+        working-directory: ./frontend
         run: pnpm build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist # The folder the action should deploy (default output folder for Vite)
+          folder: frontend/dist # The folder the action should deploy (default output folder for Vite)
           branch: gh-pages # The branch the action should deploy to
           clean: true # Automatically remove deleted files from the deployment branch
