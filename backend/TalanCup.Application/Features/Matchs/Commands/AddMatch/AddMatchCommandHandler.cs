@@ -28,8 +28,10 @@ public class AddMatchCommandHandler(ITalanCupContext dbContext) : IRequestHandle
 
     private async Task<ErrorOr<Success>> IsPlayersExistsAsync(Guid homePlayerId, Guid awayPlayerId, CancellationToken cancellationToken)
     {
-        var isExists = await dbContext.Players.AnyAsync(p => p.PlayerId == homePlayerId || p.PlayerId == awayPlayerId);
-        return isExists ? Result.Success : Error.Failure("PlayerNotFound", "One of the players does not exist");
+        var playersCount = await dbContext.Players
+            .CountAsync(p => p.PlayerId == homePlayerId || p.PlayerId == awayPlayerId, cancellationToken);
+
+        return playersCount == 2 ? Result.Success : Error.Failure("PlayerNotFound", "One of the players does not exist");
     }
 
     private async Task<ErrorOr<Success>> AddMatchAsync(AddMatchCommand command, CancellationToken cancellationToken)

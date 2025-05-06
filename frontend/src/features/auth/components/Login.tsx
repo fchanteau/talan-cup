@@ -7,6 +7,7 @@ import { type LoginSchema, useLoginSchema } from "../auth.model";
 import { setToken } from "../auth.service";
 
 import { actionCreators, useAppDispatch } from "@/common/store";
+import { useToasterHandleError } from "@/hooks/useToaster";
 import { type LoginRequest } from "@/types/TalanCupApi";
 
 export function Login() {
@@ -31,11 +32,13 @@ export function Login() {
 
       setToken(loginResponse.token);
       dispatch(actionCreators.auth.login(loginResponse.playerId));
-    } catch {
-      console.error("Login failed");
+    } catch (error) {
+      handleError(error!);
       reset();
     }
   };
+
+  const handleError = useToasterHandleError();
 
   return (
     <Center flex={1}>

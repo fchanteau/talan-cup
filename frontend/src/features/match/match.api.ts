@@ -15,7 +15,7 @@ export const matchApi = api.injectEndpoints({
       transformResponse: (response: MatchResponse[]) => {
         return matchsAdapter.setAll(matchsInitialState, response);
       },
-      providesTags: ["MATCHS"]
+      providesTags: ["MATCHS"],
     }),
     addMatch: build.mutation<void, AddMatchRequest>({
       query: (body) => ({
@@ -23,7 +23,7 @@ export const matchApi = api.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["MATCHS"]
+      invalidatesTags: ["MATCHS"],
       // async onQueryStarted(arg, { dispatch, queryFulfilled }) {
       //   const patchResult = dispatch(
       //     matchApi.util.updateQueryData("getMatchs", undefined, (draft) => {
@@ -36,8 +36,19 @@ export const matchApi = api.injectEndpoints({
       //     patchResult.undo();
       //   }
       // },
-    })
+    }),
+    deleteMatch: build.mutation<void, string>({
+      query: (id) => ({
+        url: `api/matchs/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["MATCHS"],
+    }),
   }),
 });
 
-export const { useGetMatchsQuery, useAddMatchMutation } = matchApi;
+export const {
+  useGetMatchsQuery,
+  useAddMatchMutation,
+  useDeleteMatchMutation,
+} = matchApi;

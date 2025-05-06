@@ -17,8 +17,8 @@ export const authSlice = createSlice({
       state.playerId = payload;
     },
     logout: (state) => {
-      state.isConnected = initialState.isConnected;
-      state.playerId = initialState.playerId;
+      state.isConnected = false;
+      state.playerId = undefined;
     },
   },
 });

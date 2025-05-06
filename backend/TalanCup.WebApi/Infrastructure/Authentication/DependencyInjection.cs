@@ -32,7 +32,8 @@ public static class DependencyInjection
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = jwtOptions!.Issuer,
                     ValidAudience = jwtOptions.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey!))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey!)),
+                    ClockSkew = TimeSpan.Zero
                 };
             });
     }

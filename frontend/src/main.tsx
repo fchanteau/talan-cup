@@ -10,9 +10,9 @@ import { Provider } from "react-redux";
 
 import App from "./App.tsx";
 import { store } from "./common/store.ts";
+import { Toaster } from "./components/chakra/toaster.tsx";
 
 import "./index.css";
-
 const customConfig = defineConfig({
   globalCss: {
     html: {
@@ -27,6 +27,7 @@ createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <ChakraProvider value={system}>
         <App />
+        <Toaster />
       </ChakraProvider>
     </Provider>
   </StrictMode>

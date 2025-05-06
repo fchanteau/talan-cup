@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const useLoginSchema = () => {
   return z.object({
-    login: z.string().nonempty("Le login est requis"),
+    login: z.string().nonempty("Le nom d'utilisateur est requis"),
   });
 };
 

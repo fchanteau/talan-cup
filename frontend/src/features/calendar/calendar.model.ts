@@ -2,11 +2,7 @@ import { z } from "zod";
 
 export const useMatchSchema = () => {
   return z.object({
-    awayPlayer: z
-      .string()
-      .nonempty()
-      .array()
-      .min(1, "L'équipe à l'extérieur est requise"),
+    awayPlayer: z.string().nonempty("L'équipe à l'extérieur est requise"),
   });
 };
 

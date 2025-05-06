@@ -13,9 +13,9 @@ import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useMemo, useState } from "react";
 
-import { AddEventDialog } from "./AddEventDialog";
 import { ChakraFullCalendarWrapper } from "./ChakraFullCalendarWrapper";
-import { ShowMatchDialog } from "./ShowMatchDialog";
+import { AddMatchDialog } from "../../match/components/AddMatchDialog";
+import { ShowMatchDialog } from "../../match/components/ShowMatchDialog";
 
 import { useAppSelector } from "@/common/store";
 import { formatDateForCalendar } from "@/common/utils/date";
@@ -40,7 +40,7 @@ export default function Calendar() {
       const homePlayer = players.find((p) => p.playerId === match.homePlayerId);
       const awayPlayer = players.find((p) => p.playerId === match.awayPlayerId);
       return {
-        title: `${homePlayer?.nameTag} (${homePlayer?.team}) vs ${awayPlayer?.nameTag} (${awayPlayer?.team})`,
+        title: `${homePlayer?.nameTag} (${homePlayer?.team}) / ${awayPlayer?.nameTag} (${awayPlayer?.team})`,
         start: formatDateForCalendar(match.startDate),
         end: formatDateForCalendar(match.endDate),
         id: match.matchId,
@@ -48,11 +48,13 @@ export default function Calendar() {
     });
   }, [matchs, players]);
 
-  const [selectedMatch, setSelectedMatch] = useState<EventImpl | null>(null);
+  const [selectedMatch, setSelectedMatch] = useState<EventImpl | undefined>(
+    undefined
+  );
   const {
-    open: openAdd,
-    onOpen: onOpenAdd,
-    onToggle: onToggleAdd,
+    open: openAddMatch,
+    onOpen: onOpenAddMatch,
+    onClose: onCloseAddMatch,
   } = useDisclosure();
   const {
     open: openDetail,
@@ -70,7 +72,7 @@ export default function Calendar() {
       start: arg.start,
       end: arg.end,
     });
-    onOpenAdd();
+    onOpenAddMatch();
   };
 
   const onEventClick = (arg: EventClickArg) => {
@@ -112,24 +114,24 @@ export default function Calendar() {
         </Card.Body>
       </Card.Root>
 
-      <AddEventDialog
-        open={openAdd}
-        onOpenChange={onToggleAdd}
+      <AddMatchDialog
         startDate={selectedDates.start}
         endDate={selectedDates.end}
-        onConfirm={onToggleAdd}
-      >
-        {""}
-      </AddEventDialog>
+        open={openAddMatch}
+        onOpenChange={onCloseAddMatch}
+        onConfirm={() => {
+          setSelectedDates({ start: null, end: null });
+        }}
+      />
 
-      <ShowMatchDialog
-        open={openDetail}
-        onOpenChange={onToggleDetail}
-        match={selectedMatch}
-        onConfirm={onToggleDetail}
-      >
-        {""}
-      </ShowMatchDialog>
+      {selectedMatch && (
+        <ShowMatchDialog
+          open={openDetail}
+          onOpenChange={onToggleDetail}
+          matchId={selectedMatch?.id}
+          onConfirm={() => setSelectedMatch(undefined)}
+        />
+      )}
     </ChakraFullCalendarWrapper>
   );
 }

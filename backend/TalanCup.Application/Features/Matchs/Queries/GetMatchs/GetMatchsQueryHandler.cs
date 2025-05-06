@@ -10,11 +10,14 @@ public record GetMatchsQuery() : IRequest<ErrorOr<GetMatchsResponse>>;
 
 public record GetMatchsResponse(IEnumerable<MatchDto> Matchs);
 
-public class GetMatchsQueryHandler(ITalanCupContext dbContext) : IRequestHandler<GetMatchsQuery, ErrorOr<GetMatchsResponse>>
+public class GetMatchsQueryHandler(ITalanCupContext dbContext, IDateTimeProvider dateTimeProvider) : IRequestHandler<GetMatchsQuery, ErrorOr<GetMatchsResponse>>
 {
     public async Task<ErrorOr<GetMatchsResponse>> Handle(GetMatchsQuery request, CancellationToken cancellationToken)
     {
+        var unixDate = new DateTimeOffset(dateTimeProvider.UtcNow.Date).ToUnixTimeSeconds();
+
         var matchs = await dbContext.Matchs
+            .Where(m => m.StartDate > unixDate)
             .Select(m => MatchDto.FromMatch(m))
             .ToListAsync(cancellationToken);
 

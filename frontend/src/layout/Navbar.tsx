@@ -2,6 +2,7 @@ import { Container, Flex, Heading, HStack, Square } from "@chakra-ui/react";
 import { LuPower } from "react-icons/lu";
 
 import { actionCreators, useAppDispatch, useAppSelector } from "@/common/store";
+import { toaster } from "@/components/chakra/toaster";
 import { TalanLogo } from "@/components/TalanLogo";
 import { isConnected } from "@/features/auth/auth.selector";
 import { clearStorage } from "@/features/auth/auth.service";
@@ -11,8 +12,13 @@ export function Navbar() {
   const dispatch = useAppDispatch();
 
   const onLogout = () => {
-    dispatch(actionCreators.auth.logout());
     clearStorage();
+    dispatch(actionCreators.auth.logout());
+    toaster.create({
+      title: "Déconnexion réussie",
+      type: "success",
+      duration: 2000,
+    });
   };
 
   return (
