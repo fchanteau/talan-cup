@@ -110,6 +110,8 @@ export default function Calendar() {
             selectAllow={handleSelectAllow}
             eventClick={onEventClick}
             validRange={{ start: new Date() }}
+            eventLongPressDelay={100}
+            selectLongPressDelay={100}
           />
         </Card.Body>
       </Card.Root>
