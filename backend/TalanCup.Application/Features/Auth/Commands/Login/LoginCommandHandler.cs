@@ -13,7 +13,7 @@ public class LoginCommandHandler(ITalanCupContext dbContext, ITokenFactory token
 {
     public async Task<ErrorOr<LoginCommandResult>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var user = await dbContext.Players.FirstOrDefaultAsync(p => request.Login == $"{p.NameTag.ToLower()}#{p.Team.ToLower().Substring(0, 3)}", cancellationToken);
+        var user = await dbContext.Players.FirstOrDefaultAsync(p => request.Login.ToLower() == $"{p.NameTag.ToLower()}#{p.Team.ToLower().Substring(0, 3)}", cancellationToken);
         if(user is null)
         {
             return Error.Failure("UserNotFound", "User not found");
