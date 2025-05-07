@@ -91,7 +91,7 @@ export default function Calendar() {
         <Card.Body>
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            height={"65vh"}
+            height={"auto"}
             initialView="timeGridWeek"
             headerToolbar={{
               left: "prev,next",

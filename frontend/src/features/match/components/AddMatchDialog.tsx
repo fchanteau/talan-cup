@@ -54,6 +54,11 @@ export function AddMatchDialog(props: AddMatchDialogProps) {
   });
   const handleError = useToasterHandleError();
 
+  const onClose = () => {
+    reset();
+    onOpenChange();
+  };
+
   const onSubmit: SubmitHandler<MatchSchema> = async (data) => {
     try {
       await addMatch({
@@ -78,7 +83,7 @@ export function AddMatchDialog(props: AddMatchDialogProps) {
   };
 
   return (
-    <DialogRoot open={open} onOpenChange={onOpenChange} placement={"center"}>
+    <DialogRoot open={open} onOpenChange={onClose} placement={"center"}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Planifier un match</DialogTitle>

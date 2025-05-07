@@ -51,7 +51,6 @@ export function ShowMatchDialog(props: ShowMatchDialogProps) {
       toaster.create({
         title: "Match supprimé",
         type: "success",
-        duration: 2000,
       });
     } catch (error) {
       handleError(error!);

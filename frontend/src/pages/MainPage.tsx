@@ -8,13 +8,13 @@ import Calendar from "@/features/calendar/components/Calendar";
 export default function MainPage() {
   const isUserConnected = useAppSelector(isConnected);
 
-  if (isUserConnected) {
-    return (
-      <Container maxWidth={"6xl"} marginTop={4}>
-        <Calendar />
-      </Container>
-    );
+  if (!isUserConnected) {
+    return <Login />;
   }
 
-  return <Login />;
+  return (
+    <Container maxWidth={"6xl"} marginTop={4}>
+      <Calendar />
+    </Container>
+  );
 }

@@ -45,7 +45,6 @@ export function useToasterHandleError() {
       title: title,
       description: message,
       type: "error",
-      duration: 5000,
     });
   };
 }
