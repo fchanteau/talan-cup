@@ -97,7 +97,7 @@ export function Navbar() {
                   </Heading>
 
                   {isUserConnected && (
-                    <Button colorPalette={"red"}>
+                    <Button colorPalette={"red"} onClick={onLogout}>
                       <LuPower />
                       Déconnexion
                     </Button>
