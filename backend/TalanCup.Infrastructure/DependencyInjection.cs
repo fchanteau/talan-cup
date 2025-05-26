@@ -9,13 +9,18 @@ public static class DependencyInjection
 {
     public static void AddInfrastructure(this IHostApplicationBuilder builder, IConfiguration configuration)
     {
-        builder.AddDatabase(configuration);
+        builder.AddDatabase();
         builder.AddFactories();
         builder.AddProviders();
     }
 
     public static async Task UseInfrastructureAsync(this IHost host, CancellationToken cancellationToken = default)
     {
-        await host.UseDatabaseAsync(cancellationToken);
+        var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+        if(env != "NSwag")
+        {
+            await host.UseDatabaseAsync(cancellationToken);
+        }
     }
 }
