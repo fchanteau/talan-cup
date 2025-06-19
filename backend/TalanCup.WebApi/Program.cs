@@ -14,8 +14,10 @@ builder.AddInfrastructure(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-
-await app.UseInfrastructureAsync();
+if(app.Environment.EnvironmentName != "NSwag")
+{
+    await app.UseInfrastructureAsync();
+}
 
 app.UseWebInfrastructure(builder.Configuration);
 

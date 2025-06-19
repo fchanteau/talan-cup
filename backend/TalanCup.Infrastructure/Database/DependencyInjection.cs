@@ -8,13 +8,10 @@ using TalanCup.Application.Common;
 namespace TalanCup.Infrastructure.Database;
 public static class DependencyInjection
 {
-    public static void AddDatabase(this IHostApplicationBuilder builder)
+    public static void AddDatabase(this IHostApplicationBuilder builder, IConfiguration configuration)
     {
-        //builder.Services.AddDbContext<TalanCupContext>(options =>
-        //    options.UseInMemoryDatabase(databaseName: "TalanCupDatabase"));
-
         builder.Services.AddDbContext<TalanCupContext>(options =>
-            options.UseNpgsql(builder.Configuration.GetConnectionString("TalanCupDatabase")));
+            options.UseInMemoryDatabase(databaseName: "TalanCupDatabase"));
 
 
         builder.Services.AddScoped<TalanCupContextInitializer>();
@@ -28,8 +25,10 @@ public static class DependencyInjection
 
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<TalanCupContextInitializer>>();
 
-        logger.LogInformation("Initializing database");
-        await dbInitializer.InitializeAsync(cancellationToken);
+        // NO NEED RIGHT NOW BECAUSE INMEMORY DATABASE
+        //logger.LogInformation("Initializing database");
+        //await dbInitializer.InitializeAsync(cancellationToken);
+        logger.LogInformation(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
 
         logger.LogInformation("Seeding database");
         await dbInitializer.SeedAsync(true, cancellationToken);

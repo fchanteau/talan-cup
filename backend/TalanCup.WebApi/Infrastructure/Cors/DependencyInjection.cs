@@ -4,9 +4,9 @@ namespace TalanCup.WebApi.Infrastructure.Cors;
 
 public static class DependencyInjection
 {
-    public static void AddTalanCupCors(this IHostApplicationBuilder builder)
+    public static void AddTalanCupCors(this IServiceCollection services)
     {
-        builder.Services.AddOptions<CorsOption>()
+        services.AddOptions<CorsOption>()
             .BindConfiguration(CorsOption.SectionName)
             .ValidateDataAnnotations()
             .ValidateOnStart();

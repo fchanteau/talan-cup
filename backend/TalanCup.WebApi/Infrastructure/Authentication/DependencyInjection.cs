@@ -7,16 +7,16 @@ namespace TalanCup.WebApi.Infrastructure.Authentication;
 
 public static class DependencyInjection
 {
-    public static void AddTalanCupAuthentication(this IHostApplicationBuilder builder)
+    public static void AddTalanCupAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
-        builder.Services.AddOptions<JwtOptions>()
+        services.AddOptions<JwtOptions>()
             .BindConfiguration(JwtOptions.SectionName)
             .ValidateDataAnnotations()
             .ValidateOnStart();
 
-        var jwtOptions = builder.Configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>();
+        var jwtOptions = configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>();
 
-        builder.Services
+        services
             .AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

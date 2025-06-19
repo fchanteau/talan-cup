@@ -30,10 +30,8 @@ public static class DependencyInjection
         });
 
         builder.Services.AddHttpContextAccessor();
-
-        // builder.AddTalanCupKeyVault();
-        builder.AddTalanCupCors();
-        builder.AddTalanCupAuthentication();
+        builder.Services.AddTalanCupCors();
+        builder.Services.AddTalanCupAuthentication(configuration);
     }
 
     public static void UseWebInfrastructure(this WebApplication app, IConfiguration configuration)
