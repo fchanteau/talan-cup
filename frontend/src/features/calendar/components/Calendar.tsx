@@ -40,7 +40,7 @@ export default function Calendar() {
       const homePlayer = players.find((p) => p.playerId === match.homePlayerId);
       const awayPlayer = players.find((p) => p.playerId === match.awayPlayerId);
       return {
-        title: `${homePlayer?.nameTag} (${homePlayer?.team}) / ${awayPlayer?.nameTag} (${awayPlayer?.team})`,
+        title: `${homePlayer?.firstname} ${homePlayer?.lastname} / ${awayPlayer?.firstname} ${awayPlayer?.lastname}`,
         start: formatDateForCalendar(match.startDate),
         end: formatDateForCalendar(match.endDate),
         id: match.matchId,
@@ -82,7 +82,7 @@ export default function Calendar() {
 
   const handleSelectAllow = (selectInfo: DateSpanApi) => {
     const duration = selectInfo.end.getTime() - selectInfo.start.getTime();
-    return duration <= 15 * 60000;
+    return duration <= 10 * 60000;
   };
 
   return (
@@ -92,7 +92,7 @@ export default function Calendar() {
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             height={"auto"}
-            initialView="timeGridWeek"
+            initialView="timeGridDay"
             headerToolbar={{
               left: "prev,next",
               center: "title",
@@ -103,7 +103,7 @@ export default function Calendar() {
             allDayText=""
             slotMinTime={"10:00:00"}
             slotMaxTime={"20:00:00"}
-            slotDuration={"00:15:00"} // 15 minutes
+            slotDuration={"00:10:00"} // 10 minutes
             selectable={true}
             selectOverlap={false}
             select={onDateSelect}

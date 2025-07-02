@@ -425,10 +425,10 @@
             "type": "string",
             "format": "guid"
           },
-          "nameTag": {
+          "firstname": {
             "type": "string"
           },
-          "team": {
+          "lastname": {
             "type": "string"
           }
         }

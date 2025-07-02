@@ -46,8 +46,8 @@ export interface AddMatchRequest {
 
 export interface PlayerResponse {
     playerId: string;
-    nameTag: string;
-    team: string;
+    firstname: string;
+    lastname: string;
 }
 
 export interface FileResponse {

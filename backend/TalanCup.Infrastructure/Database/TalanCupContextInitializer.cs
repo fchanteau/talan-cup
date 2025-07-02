@@ -44,51 +44,63 @@ public class TalanCupContextInitializer(TalanCupContext dbContext, ILogger<Talan
 
         await dbContext.SaveChangesAsync(cancellationToken);
 
-        var players = new[] {
-            InitPlayer("Aurélien", "Aston Villa"),
-            InitPlayer("Simon", "Ath. Bilbao"),
-            InitPlayer("Philippe", "Atlético Madrid"),
-            InitPlayer("Alexis", "Brentford"),
-            InitPlayer("Albin", "Brighton"),
-            InitPlayer("Léon", "Chelsea"),
-            InitPlayer("Manu", "Crystal Palace"),
-            InitPlayer("Jess", "Dortmund"),
-            InitPlayer("Julien", "Barcelone"),
-            InitPlayer("Thomas", "Inter Milan"),
-            InitPlayer("Maleaume", "Juventus"),
-            InitPlayer("Geoffroy", "Leverkusen"),
-            InitPlayer("Quentin", "Lille"),
-            InitPlayer("Vianney", "Liverpool"),
-            InitPlayer("Maxime", "Lyon"),
-            InitPlayer("Pierre-yves", "Manchester City"),
-            InitPlayer("Farah", "Manchester United"),
-            InitPlayer("François", "Marseille"),
-            InitPlayer("Camille", "Milan AC"),
-            InitPlayer("Antoine", "Newcastle"),
-            InitPlayer("Fabrice", "Nottingham"),
-            InitPlayer("Sébastien", "Paris"),
-            InitPlayer("Florian", "PSV"),
-            InitPlayer("Sylvain", "Leipzig"),
-            InitPlayer("Lucas", "Real Madrid"),
-            InitPlayer("Dylan", "Real Sociedad"),
-            InitPlayer("Dimitri", "Roma"),
-            InitPlayer("Romain", "Stade Rennais"),
-            InitPlayer("Teddy", "Tottenham Hotspur"),
-            InitPlayer("Ayoub", "West Ham"),
+        var players = new Player[] {
+            new("Agnes", "LE ROUX"),
+            new("Adeline", "CHAYE"),
+            new("Albin", "QUERE"),
+            new("Alexis", "EMERIAU"),
+            new("Almamy Moustapha", "TOURE"),
+            new("Antoine", "MADRE"),
+            new("Antoine", "MARTEAU"),
+            new("Axel", "DONNE"),
+            new("Ayoub", "CHAHIR"),
+            new("Bachir", "MOUAWAD"),
+            new("Baptiste", "CARVAILLO"),
+            new("Bruno", "MAHE DE LAVILLEGLE"),
+            new("Carole", "JULE"),
+            new("Celine", "BRUNIE"),
+            new("Chloe", "HAYREAUD"),
+            new("Cyril", "CARON"),
+            new("Damien", "MENANTEAU"),
+            new("Etienne", "BRASSIER"),
+            new("Fabrice", "PIED"),
+            new("Farah", "FAROUH"),
+            new("Flavien", "SAUDEAU"),
+            new("Francois", "CHANTEAU"),
+            new("Francois", "SABBAGH"),
+            new("Geoffroy", "BUREAU"),
+            new("Georges", "MORERA VENTALLO"),
+            new("Gwendal", "GUILLEMOTO"),
+            new("Herve", "GUERIN"),
+            new("Jasmine", "DENIS"),
+            new("Jess", "PARISOT"),
+            new("Julien", "BOTREL"),
+            new("Julien", "VILLENEAU"),
+            new("Karen", "PERCET"),
+            new("Leon", "TER"),
+            new("Lucas", "GOUTAUDIER"),
+            new("Ludovic", "BRIAND"),
+            new("Maleaume", "LEROUX"),
+            new("Maxime", "ROPERO"),
+            new("Mehdi", "BENCHAJI"),
+            new("Mickael", "PATTE"),
+            new("Pierre-Yves", "CAYLA"),
+            new("Romain", "LEMETAYER"),
+            new("Samuel", "POUILLOT"),
+            new("Sebastien", "GAUTIER"),
+            new("Simon", "ROY"),
+            new("Soline", "PONSARD"),
+            new("Stephane", "NAIGEON"),
+            new("Sylvain", "FLEURET"),
+            new("Thomas", "BITTON"),
+            new("Valentin", "VACHON"),
+            new("Vianney", "DALMAS"),
+            new("Vianney", "NYS"),
+            new("Vincent", "THONGDY"),
         };
 
         dbContext.Players.AddRange(players);
 
         await dbContext.SaveChangesAsync(cancellationToken);
-    }
-
-    private Player InitPlayer(string nameTag, string teamName)
-    {
-        return new Player
-        {
-            PlayerId = Guid.NewGuid(),
-            NameTag = nameTag,
-            Team = teamName
-        };
     }
 }

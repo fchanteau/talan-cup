@@ -55,11 +55,11 @@ namespace TalanCup.Infrastructure.Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("NameTag")
+                    b.Property<string>("Firstname")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Team")
+                    b.Property<string>("Lastname")
                         .IsRequired()
                         .HasColumnType("text");
 

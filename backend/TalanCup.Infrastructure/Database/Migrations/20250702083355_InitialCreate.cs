@@ -16,8 +16,8 @@ namespace TalanCup.Infrastructure.Database.Migrations
                 columns: table => new
                 {
                     PlayerId = table.Column<Guid>(type: "uuid", nullable: false),
-                    NameTag = table.Column<string>(type: "text", nullable: false),
-                    Team = table.Column<string>(type: "text", nullable: false)
+                    Firstname = table.Column<string>(type: "text", nullable: false),
+                    Lastname = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {

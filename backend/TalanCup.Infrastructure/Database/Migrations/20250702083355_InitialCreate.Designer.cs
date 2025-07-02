@@ -12,7 +12,7 @@ using TalanCup.Infrastructure.Database;
 namespace TalanCup.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(TalanCupContext))]
-    [Migration("20250526084432_InitialCreate")]
+    [Migration("20250702083355_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -58,11 +58,11 @@ namespace TalanCup.Infrastructure.Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("NameTag")
+                    b.Property<string>("Firstname")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Team")
+                    b.Property<string>("Lastname")
                         .IsRequired()
                         .HasColumnType("text");
 

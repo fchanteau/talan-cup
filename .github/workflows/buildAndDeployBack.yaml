@@ -55,17 +55,10 @@ jobs:
         with:
           name: .net-app
 
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_9AD9000F7B4D41EFBDC3D50B6257608B }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_733383EF6C4B46B0A5D5F0F49E49E525 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_4780E91EAA6F4C608B8923D45F3EE2A9 }}
-
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: "talan-cup-api"
           slot-name: "Production"
-          package: .
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: "./"

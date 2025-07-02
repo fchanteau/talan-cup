@@ -43,7 +43,7 @@ export function PlayerSelect({
           <For each={availablePlayers}>
             {(player) => (
               <option value={player.playerId} key={player.playerId}>
-                {`${player.nameTag} (${player.team})`}
+                {`${player.firstname} ${player.lastname}`}
               </option>
             )}
           </For>

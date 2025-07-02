@@ -66,15 +66,15 @@ export function ShowMatchDialog(props: ShowMatchDialogProps) {
         <DialogBody>
           <DataList.Root orientation="horizontal">
             <DataList.Item>
-              <DataList.ItemLabel>Joueur domicile</DataList.ItemLabel>
+              <DataList.ItemLabel>Joueur 1</DataList.ItemLabel>
               <DataList.ItemValue>
-                {homePlayerData.nameTag} ({homePlayerData.team})
+                {homePlayerData.firstname} {homePlayerData.lastname}
               </DataList.ItemValue>
             </DataList.Item>
             <DataList.Item>
-              <DataList.ItemLabel>Joueur extérieur</DataList.ItemLabel>
+              <DataList.ItemLabel>Joueur 2</DataList.ItemLabel>
               <DataList.ItemValue>
-                {awayPlayerData.nameTag} ({awayPlayerData.team})
+                {awayPlayerData.firstname} {awayPlayerData.lastname}
               </DataList.ItemValue>
             </DataList.Item>
             <DataList.Item>

@@ -4,16 +4,16 @@ namespace TalanCup.Contracts;
 public class PlayerResponse
 {
     public Guid PlayerId { get; set; }
-    public string NameTag { get; set; }
-    public string Team { get; set; }
+    public string Firstname { get; set; } = "";
+    public string Lastname { get; set; } = "";
 
     public static PlayerResponse FromDto(PlayerDto player)
     {
         return new PlayerResponse
         {
             PlayerId = player.PlayerId,
-            NameTag = player.TagName,
-            Team = player.Team
+            Firstname = player.Firstname,
+            Lastname = player.Lastname
         };
     }
 }

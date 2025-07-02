@@ -2,10 +2,7 @@ import { Stack, Field, Input, Button } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type SubmitHandler, useForm } from "react-hook-form";
 
-import {
-  type MatchSchema,
-  useMatchSchema,
-} from "../../calendar/calendar.model";
+import { type MatchSchema, useMatchSchema } from "../match.model";
 
 import { useAppSelector } from "@/common/store";
 import { dateToUnixTime } from "@/common/utils/date";
@@ -99,10 +96,10 @@ export function AddMatchDialog(props: AddMatchDialogProps) {
               <Input disabled value={endDate?.toLocaleString("fr-FR")} />
             </Field.Root>
             <Field.Root>
-              <Field.Label>Joueur à domicile</Field.Label>
+              <Field.Label>Joueur 1</Field.Label>
               <Input
                 disabled
-                value={`${homePlayer?.nameTag} (${homePlayer?.team})`}
+                value={`${homePlayer?.firstname} ${homePlayer?.lastname}`}
               />
             </Field.Root>
             <PlayerSelect
@@ -110,7 +107,7 @@ export function AddMatchDialog(props: AddMatchDialogProps) {
               register={register}
               error={errors.awayPlayer}
               excludePlayerId={homePlayerId || undefined}
-              label="Joueur extérieur"
+              label="Joueur 2"
               placeholder="Sélectionner un adversaire"
             />
           </Stack>

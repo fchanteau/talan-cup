@@ -45,15 +45,12 @@ export function Navbar() {
 
           <Show when={!isMobile}>
             <Heading as={"h1"} size={"6xl"} color="teal" fontWeight={"bold"}>
-              Book a match
+              Talan CUP Summer #1
             </Heading>
           </Show>
           {/* Menu desktop */}
           <Show when={!isMobile}>
             <HStack gap={6}>
-              <Heading as={"h1"} size={"4xl"} color="teal">
-                Talan CUP #6
-              </Heading>
               {isUserConnected && (
                 <Square
                   size="10"
@@ -93,7 +90,7 @@ export function Navbar() {
                 <VStack gap={6} align="stretch">
                   <TalanLogo />
                   <Heading as={"h1"} size={"md"} color="teal">
-                    Talan CUP #6
+                    Talan CUP Summer #1
                   </Heading>
 
                   {isUserConnected && (

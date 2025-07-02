@@ -13,8 +13,8 @@ public class LoginCommandHandler(ITalanCupContext dbContext, ITokenFactory token
 {
     public async Task<ErrorOr<LoginCommandResult>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var players = await dbContext.Players.ToListAsync(cancellationToken); // need thid because cannot perform substring into SQl...
-        var user = players.FirstOrDefault(p => request.Login.ToLower() == $"{p.NameTag.ToLower()}#{p.Team.ToLower().Substring(0, 3)}");
+        var players = await dbContext.Players.ToListAsync(cancellationToken); // need thid because cannot filter on notMapped column
+        var user = players.FirstOrDefault(p => p.Login.Equals(request.Login, StringComparison.CurrentCultureIgnoreCase));
         if(user is null)
         {
             return Error.Failure("UserNotFound", "User not found");

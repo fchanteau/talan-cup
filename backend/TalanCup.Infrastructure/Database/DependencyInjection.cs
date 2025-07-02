@@ -3,7 +3,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using TalanCup.Application.Common;
+using TalanCup.Shared.Options;
 
 namespace TalanCup.Infrastructure.Database;
 public static class DependencyInjection
@@ -12,6 +14,11 @@ public static class DependencyInjection
     {
         //builder.Services.AddDbContext<TalanCupContext>(options =>
         //    options.UseInMemoryDatabase(databaseName: "TalanCupDatabase"));
+
+        builder.Services.AddOptions<DatabaseOptions>()
+            .BindConfiguration(DatabaseOptions.SectionName)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
         builder.Services.AddDbContext<TalanCupContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("TalanCupDatabase")));
@@ -28,10 +35,12 @@ public static class DependencyInjection
 
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<TalanCupContextInitializer>>();
 
+        var databaseOptions = scope.ServiceProvider.GetRequiredService<IOptions<DatabaseOptions>>().Value;
+
         logger.LogInformation("Initializing database");
         await dbInitializer.InitializeAsync(cancellationToken);
 
         logger.LogInformation("Seeding database");
-        await dbInitializer.SeedAsync(true, cancellationToken);
+        await dbInitializer.SeedAsync(databaseOptions.InitData, cancellationToken);
     }
 }

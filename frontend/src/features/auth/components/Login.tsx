@@ -24,7 +24,6 @@ export function Login() {
 
   const [login, { isLoading }] = useLoginMutation();
   const onSubmit: SubmitHandler<LoginSchema> = async (data) => {
-    console.log(data);
     try {
       const loginResponse = await login({
         login: data.login,
