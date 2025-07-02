@@ -20,7 +20,7 @@ public class TokenFactory(IOptions<JwtOptions> jwtOptions, IDateTimeProvider dat
 
         var token = new JwtSecurityToken(_jwtOptions.Issuer,
                                          _jwtOptions.Audience,
-                                         expires: dateTimeProvider.UtcNow.AddMinutes(60),
+                                         expires: dateTimeProvider.UtcNow.AddDays(1),
                                          signingCredentials: credentials);
 
         token.Payload.AddClaim(new Claim(TalanCupClaimTypes.PlayerId, playerId.ToString()));

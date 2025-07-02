@@ -1,10 +1,10 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 import { type AuthState } from "./auth.model";
-import { getUserIdFromToken, isTokenInStorage } from "./auth.service";
+import { getUserIdFromToken, isTokenInStorageAndValid } from "./auth.service";
 
 export const initialState: AuthState = {
-  isConnected: isTokenInStorage(),
+  isConnected: isTokenInStorageAndValid(),
   playerId: getUserIdFromToken(),
 };
 
