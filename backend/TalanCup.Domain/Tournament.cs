@@ -9,4 +9,9 @@ public class Tournament
     public MatchDuration MatchDuration { get; set; } = MatchDuration.FifteenMinutes;
 
     public virtual ICollection<Player> Players { get; set; } = [];
+
+    public Tournament()
+    {
+        TournamentId = Guid.NewGuid();
+    }
 }
