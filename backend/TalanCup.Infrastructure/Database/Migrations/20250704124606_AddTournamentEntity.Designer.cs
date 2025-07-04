@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TalanCup.Infrastructure.Database;
@@ -11,9 +12,11 @@ using TalanCup.Infrastructure.Database;
 namespace TalanCup.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(TalanCupContext))]
-    partial class TalanCupContextModelSnapshot : ModelSnapshot
+    [Migration("20250704124606_AddTournamentEntity")]
+    partial class AddTournamentEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

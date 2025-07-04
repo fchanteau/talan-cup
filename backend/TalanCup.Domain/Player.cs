@@ -7,6 +7,8 @@ public class Player
     public string Firstname { get; set; } = "";
     public string Lastname { get; set; } = "";
 
+    public virtual ICollection<Tournament> Tournaments { get; set; } = [];
+
     [NotMapped]
     public string Login => $"{Firstname.ToLowerInvariant().Replace(" ", "")}#{Firstname.ToLowerInvariant()[0]}{Lastname.ToLowerInvariant()[0]}{Lastname.ToLowerInvariant()[^1]}";
 
