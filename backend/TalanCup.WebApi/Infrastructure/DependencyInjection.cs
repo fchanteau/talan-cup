@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 using TalanCup.WebApi.Infrastructure.Authentication;
 using TalanCup.WebApi.Infrastructure.Cors;
+using TalanCup.WebApi.Infrastructure.Logging;
 
 namespace TalanCup.WebApi.Infrastructure;
 
@@ -34,11 +35,14 @@ public static class DependencyInjection
         // builder.AddTalanCupKeyVault();
         builder.AddTalanCupCors();
         builder.AddTalanCupAuthentication();
+        builder.AddLogging();
     }
 
     public static void UseWebInfrastructure(this WebApplication app, IConfiguration configuration)
     {
+        app.UseLogging();
         app.UseTalanCupCors(configuration);
+
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();
